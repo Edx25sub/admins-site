@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin List</title>
+    <link rel="icon" href="https://i.postimg.cc/65bGFXkd/imagem-2025-01-03-103750920.png" type="image/png">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            color: white;
+            background: url('https://i.postimg.cc/gkndJF7c/imagem-2025-01-03-103218582.png') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            animation: fadeInBackground 2s ease-in-out;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
+        }
+
+        .container h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
+        }
+
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .tab-button {
+            background: linear-gradient(45deg, #ffffff, #d3d3d3);
+            padding: 10px 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 10px;
+            color: black;
+            margin: 0 10px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .tab-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px #ffffff;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .editor-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 300px;
+            font-family: monospace;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border: 1px solid #fff;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        iframe {
+            width: 100%;
+            height: 300px;
+            border: 1px solid #fff;
+            border-radius: 8px;
+        }
+
+        .button {
+            background: linear-gradient(45deg, #ffffff, #d3d3d3);
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 1rem;
+            color: black;
+            font-weight: bold;
+            text-decoration: none;
+            text-shadow: 0 0 5px white, 0 0 10px #ffffff;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 15px;
+        }
+
+        .button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px #ffffff;
+        }
+
+        .close-output {
+            background: red;
+            padding: 10px 15px;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .close-output:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px #ffffff;
+        }
+
+        .login-container {
+            text-align: center;
+        }
+
+        .login-container input {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .login-container button {
+            background: linear-gradient(45deg, #ffffff, #d3d3d3);
+            padding: 10px 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 10px;
+            color: black;
+            cursor: pointer;
+        }
+
+        .login-container button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px #ffffff;
+        }
+
+        @keyframes fadeInBackground {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .admin-info {
+            display: none;
+            text-align: left;
+            margin-top: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .admin-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .admin-info-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .admin-info-container span {
+            flex: 1;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="adminContainer" style="display:none;">
+        <h1>Lista de Administradores</h1>
+
+        <!-- Guia para o Editor de Código -->
+        <div class="tab-container">
+            <button class="tab-button" onclick="openTab('adminTab')">Administradores</button>
+            <button class="tab-button" onclick="openTab('editorTab')">Editor de Código</button>
+        </div>
+
+        <!-- Conteúdo da guia Administradores -->
+        <div class="tab-content" id="adminTab">
+            <ul class="admin-list">
+                <li class="admin-item">
+                    <div class="admin-info-container">
+                        <span>"admin1" - Cargo: "Admin"</span>
+                        <a href="javascript:void(0);" id="button-admin1" class="button" onclick="showInfo('admin1-info', 'button-admin1')">Mostrar Info</a>
+                    </div>
+                    <div class="admin-info" id="admin1-info">
+                        Nick: "admin1"<br>
+                        ID: "123"<br>
+                        Cargo: "Admin"
+                        <a href="javascript:void(0);" class="close-button" onclick="closeInfo('admin1-info', 'button-admin1')">Fechar</a>
+                    </div>
+                </li>
+                <li class="admin-item">
+                    <div class="admin-info-container">
+                        <span>"admin2" - Cargo: "Editor"</span>
+                        <a href="javascript:void(0);" id="button-admin2" class="button" onclick="showInfo('admin2-info', 'button-admin2')">Mostrar Info</a>
+                    </div>
+                    <div class="admin-info" id="admin2-info">
+                        Nick: "admin2"<br>
+                        ID: "456"<br>
+                        Cargo: "Editor"
+                        <a href="javascript:void(0);" class="close-button" onclick="closeInfo('admin2-info', 'button-admin2')">Fechar</a>
+                    </div>
+                </li>
+                <li class="admin-item">
+                    <div class="admin-info-container">
+                        <span>"admin3" - Cargo: "Viewer"</span>
+                        <a href="javascript:void(0);" id="button-admin3" class="button" onclick="showInfo('admin3-info', 'button-admin3')">Mostrar Info</a>
+                    </div>
+                    <div class="admin-info" id="admin3-info">
+                        Nick: "admin3"<br>
+                        ID: "789"<br>
+                        Cargo: "Viewer"
+                        <a href="javascript:void(0);" class="close-button" onclick="closeInfo('admin3-info', 'button-admin3')">Fechar</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Conteúdo da guia Editor de Código -->
+        <div class="tab-content" id="editorTab">
+            <div class="editor-container">
+                <textarea id="htmlCode" placeholder="Digite seu código HTML aqui..."></textarea>
+                <button class="button" onclick="runCode()">Executar Código</button>
+                <iframe id="output" style="display: none;"></iframe>
+                <button class="close-output" onclick="closeOutput()">Fechar Resultado</button>
+            </div>
+        </div>
+
+        <div class="copyright">
+            &copy; 2025 Modest Menu, By Edx25_Sub | Todos os direitos reservados.
+        </div>
+    </div>
+
+    <!-- Tela de Login -->
+    <div class="login-container" id="loginContainer">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Nome de Usuário" required><br>
+        <input type="password" id="password" placeholder="Senha" required><br>
+        <button onclick="login()">Entrar</button>
+    </div>
+
+    <script>
+        // Usuários e Senhas válidas
+        const validUsers = {
+            'admin1': 'senha1',
+            'admin2': 'senha2',
+            'admin3': 'senha3'
+        };
+
+        // Função de login
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if(validUsers[username] && validUsers[username] === password) {
+                // Armazenando os dados na sessão
+                sessionStorage.setItem('loggedIn', 'true');
+                sessionStorage.setItem('username', username);
+
+                // Ocultar login e mostrar a área de administração
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('adminContainer').style.display = 'block';
+            } else {
+                alert('Credenciais inválidas');
+            }
+        }
+
+        // Função para abrir abas
+        function openTab(tabId) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => {
+                tab.style.display = 'none';
+            });
+
+            document.getElementById(tabId).style.display = 'block';
+        }
+
+        // Função para mostrar informações do admin
+        function showInfo(infoId, buttonId) {
+            document.getElementById(infoId).style.display = 'block';
+            document.getElementById(buttonId).style.display = 'none';
+        }
+
+        // Função para fechar informações do admin
+        function closeInfo(infoId, buttonId) {
+            document.getElementById(infoId).style.display = 'none';
+            document.getElementById(buttonId).style.display = 'inline-block';
+        }
+
+        // Função para rodar o código HTML
+        function runCode() {
+            const code = document.getElementById('htmlCode').value;
+            const iframe = document.getElementById('output');
+            const doc = iframe.contentDocument || iframe.contentWindow.document;
+            doc.open();
+            doc.write(code);
+            doc.close();
+            iframe.style.display = 'block';
+        }
+
+        // Função para fechar o resultado do código
+        function closeOutput() {
+            document.getElementById('output').style.display = 'none';
+        }
+
+        // Verificando se já está logado
+        if(sessionStorage.getItem('loggedIn') === 'true') {
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('adminContainer').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
